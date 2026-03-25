@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Super Shoes - Siêu khuyến mãi giày chính hãng</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #1e1e1e;  /* nền xám đen như hình */
+            color: #111;
+            line-height: 1.4;
+        }
+
+        /* container chính giúp căn lề đồng bộ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== HEADER ========== */
+        .site-header {
+            background-color: #ffffff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #d9232c;  /* đỏ đặc trưng */
+            background: none;
+            margin: 0;
+            line-height: 1;
+        }
+        .logo span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #333;
+            display: block;
+            letter-spacing: 0;
+        }
+
+        /* main menu - flex hàng ngang */
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 26px;
+            flex-wrap: wrap;
+        }
+        .main-nav a {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #1f1f1f;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+        .main-nav a:hover {
+            color: #d9232c;
+        }
+
+        /* header actions (search + icon) */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .search-wrapper {
+            display: flex;
+            border: 1px solid #e0e0e0;
+            border-radius: 30px;
+            background: #fff;
+            overflow: hidden;
+            padding: 5px 12px;
+            align-items: center;
+            background-color: #f8f8f8;
+        }
+        .search-wrapper input {
+            border: none;
+            background: transparent;
+            padding: 6px 8px;
+            font-size: 0.85rem;
+            outline: none;
+            width: 150px;
+        }
+        .search-wrapper button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            color: #555;
+        }
+        .icon-user, .icon-cart {
+            font-size: 1.4rem;
+            font-weight: 500;
+            cursor: default;
+            color: #2c2c2c;
+        }
+
+        /* ========== BANNER KHUYẾN MÃI (khối đỏ) ========== */
+        .promo-banner {
+            background-color: #d9232c;  /* đỏ cam nổi bật như hình */
+            margin: 28px 0 32px 0;
+            border-radius: 20px;
+            padding: 28px 32px;
+            text-align: center;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+        }
+        .promo-banner h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            word-break: keep-all;
+        }
+        .promo-banner p {
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+            margin-top: 8px;
+            font-size: 1rem;
+        }
+
+        /* ========== SẢN PHẨM NỔI BẬT (danh sách giày) ========== */
+        .featured-section {
+            margin-bottom: 50px;
+        }
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 24px;
+            border-left: 5px solid #d9232c;
+            padding-left: 18px;
+        }
+
+        /* GRID sản phẩm - dàn ngang hàng chuẩn */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 28px;
+        }
+
+        /* card sản phẩm */
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            cursor: default;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -12px rgba(0,0,0,0.25);
+        }
+        .product-img {
+            background-color: #f1f1f1;
+            padding: 24px 16px 12px 16px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        /* giả lập hình giày bằng icon / chữ - giữ đúng phong cách hiển thị như hình */
+        .shoe-placeholder {
+            font-size: 4rem;
+            font-weight: 400;
+            display: inline-block;
+            background: #eaeef2;
+            padding: 16px 20px;
+            border-radius: 40px;
+            color: #2c3e4e;
+        }
+        .product-info {
+            padding: 16px 18px 22px;
+        }
+        .product-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1e1e1e;
+            margin-bottom: 12px;
+            line-height: 1.3;
+            min-height: 48px;
+        }
+        .price-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .current-price {
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: #d9232c;
+        }
+        .old-price {
+            font-size: 0.95rem;
+            color: #8c8c8c;
+            text-decoration: line-through;
+        }
+
+        /* nút xem tất cả */
+        .view-all-wrapper {
+            text-align: right;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        .btn-view-all {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #2b2b2b;
+            color: white;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: 0.2s;
+            border: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        .btn-view-all:hover {
+            background-color: #d9232c;
+            transform: scale(1.02);
+        }
+
+        /* ========== FOOTER nhẹ nhàng ========== */
+        .site-footer {
+            background-color: #0f0f0f;
+            margin-top: 60px;
+            padding: 28px 0;
+            text-align: center;
+            color: #aaa;
+            font-size: 0.85rem;
+            border-top: 1px solid #2c2c2c;
+        }
+
+        /* responsive: mobile điều chỉnh menu */
+        @media (max-width: 920px) {
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .main-nav ul {
+                justify-content: center;
+                gap: 16px;
+            }
+            .header-actions {
+                justify-content: flex-end;
+            }
+            .promo-banner h2 {
+                font-size: 1.6rem;
+            }
+            .products-grid {
+                gap: 20px;
+            }
+            .container {
+                padding: 0 20px;
+            }
+        }
+        @media (max-width: 580px) {
+            .main-nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .main-nav a {
+                white-space: normal;
+                font-size: 0.85rem;
+            }
+            .search-wrapper input {
+                width: 120px;
+            }
+            .product-title {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <div class="logo">
+            <h1>Super Shoes</h1>
+            <span>Chính hãng 100%</span>
+        </div>
+        <nav class="main-nav" aria-label="Main navigation">
+            <ul>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#">Giày Nike</a></li>
+                <li><a href="#">Giày Puma</a></li>
+                <li><a href="#">Giày New Balance</a></li>
+                <li><a href="#">Giày Jeep</a></li>
+                <li><a href="#">Giày Khác</a></li>
+                <li><a href="#">Quần Áo/ Phụ Kiện</a></li>
+                <li><a href="#">Nước Hoa</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <div class="search-wrapper">
+                <input type="text" placeholder="Tìm kiếm..." aria-label="Tìm kiếm sản phẩm">
+                <button aria-label="Tìm kiếm">🔍</button>
+            </div>
+            <div class="icon-user" aria-label="Tài khoản">👤</div>
+            <div class="icon-cart" aria-label="Giỏ hàng">🛒</div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <!-- Khối đỏ SIÊU KHUYẾN MÃI -->
+        <section class="promo-banner" aria-label="Siêu khuyến mãi">
+            <h2>SIÊU KHUYẾN MÃI</h2>
+            <p>Giảm giá sốc lên đến 45% - Đồng giá cực rẻ</p>
+        </section>
+
+        <!-- Danh sách sản phẩm nổi bật (dựa theo hình) -->
+        <section class="featured-section">
+            <h2 class="section-title">🔥 Hot Deal - Giày thể thao chính hãng</h2>
+            <div class="products-grid">
+                <!-- Sản phẩm 1: New Balance 530 White Natural Indigo (GS) GR530SB1 -->
+                <div class="product-card">
+                    <div class="product-img">
+                      <div class="product-img">
+                            <img src="giày 1.png" alt="Giày New Balance 530" style="width: 100%; height: auto;">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">Giày New Balance 530 White Natural Indigo (GS) GR530SB1</div>
+                        <div class="price-wrapper">
+                            <span class="current-price">2,090,000đ</span>
+                            <span class="old-price">2,790,000đ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sản phẩm 2: New Balance Pro Court Beige Navy PROCCTCCF -->
+                <div class="product-card">
+                    <div class="product-img">
+                       <div class="product-img">
+                            <img src="giày 2.png" alt="Giày New Balance 530" style="width: 100%; height: auto;">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">Giày New Balance Pro Court Beige Navy PROCCTCCF</div>
+                        <div class="price-wrapper">
+                            <span class="current-price">1,890,000đ</span>
+                            <span class="old-price">2,450,000đ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sản phẩm 3: Nike Air Jordan 1 Low Panda W DC0774-101 -->
+                <div class="product-card">
+                    <div class="product-img">
+                         <div class="product-img">
+                            <img src="giày 3.png" alt="Giày New Balance 530" style="width: 100%; height: auto;">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">Giày Nike Air Jordan 1 Low Panda W DC0774-101</div>
+                        <div class="price-wrapper">
+                            <span class="current-price">2,790,000đ</span>
+                            <span class="old-price">4,500,000đ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sản phẩm 4: Nike Air Jordan 1 Low White Wolf Grey W DC0774-105 -->
+                <div class="product-card">
+                    <div class="product-img">
+                         <div class="product-img">
+                            <img src="giày 4.png" alt="Giày New Balance 530" style="width: 100%; height: auto;">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">Giày Nike Air Jordan 1 Low White Wolf Grey W DC0774-105</div>
+                        <div class="price-wrapper">
+                            <span class="current-price">2,690,000đ</span>
+                            <span class="old-price">3,990,000đ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Xem tất cả link đúng như mẫu -->
+            <div class="view-all-wrapper">
+                <a href="#" class="btn-view-all">Xem tất cả →</a>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <p>© 2025 Super Shoes - Thương hiệu giày chính hãng | Hỗ trợ 24/7</p>
+        <p style="margin-top: 8px;">📞 Hotline: 1900 1234 | 🏢 123 Lê Lợi, Quận 1, TP.HCM</p>
+    </div>
+</footer>
+
+</body>
+</html>
